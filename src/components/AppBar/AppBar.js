@@ -23,7 +23,6 @@ function AppBar(props) {
           Test your memory
         </Typography>
         <Button color="inherit">Start A New Game</Button>
-
       </Toolbar>
     </div>
   );
