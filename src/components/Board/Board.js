@@ -1,18 +1,32 @@
 import React, { Component } from "react";
-import Card from "../Card/Card"
-export class Board extends Component {
+import Card from "../Card/Card";
+export class board extends Component {
+  createCards() {
+    const cardsArray = [];
+    for (var index1 = 0; index1 < this.props.gameData.numOfCardRows; index1++) {
+      cardsArray[index1] = [];
+      for (
+        var index2 = 0;
+        index2 < this.props.gameData.numOfCardCols;
+        index2++
+      ) {
+        var index = index1 * this.props.gameData.numOfCardCols + index2;
+        cardsArray[index1].push(
+          <Card
+            index={index}
+            pairValue={this.props.gameData.board[index].pairValue}
+            face={this.props.gameData.board[index].face}
+            chooseCard={this.props.gameData.chooseCard}
+          />
+        );
+      }
+    }
+
+    return cardsArray;
+  }
   render() {
-      
-      
-      
-    return (
-      <div>
-        <div><Card x="0" y="0" value="0" chooseCard={this.props.chooseCard}/><Card x="0" y="1" value="1" chooseCard={this.props.chooseCard}/><Card x="0" y="2" chooseCard={this.props.chooseCard}/><Card x="0" y="3" chooseCard={this.props.chooseCard}/></div>
-        <div><Card x="1" y="0" value="0" chooseCard={this.props.chooseCard}/><Card x="1" y="1" chooseCard={this.props.chooseCard}/><Card x="1" y="2" chooseCard={this.props.chooseCard}/><Card x="1" y="3" chooseCard={this.props.chooseCard}/></div>
-        <div><Card x="2" y="0" chooseCard={this.props.chooseCard}/><Card x="2" y="1" chooseCard={this.props.chooseCard}/><Card x="2" y="2" chooseCard={this.props.chooseCard}/><Card x="2" y="3" chooseCard={this.props.chooseCard}/></div>
-      </div>
-    );
+    return <div>{this.createCards()}</div>;
   }
 }
 
-export default Board;
+export default board;

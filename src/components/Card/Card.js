@@ -7,23 +7,17 @@ export class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
-      x:this.props.x,
-      y:this.props.y,
-      value:this.props.value
+      index:this.props.index,
     };
   }
-  flipCard() {
-    const currentState = this.state.active;
-    this.setState({ active: !currentState });
-  }
+ 
   render() {
     return (
       <div className="flip-card">
         <div
-          onClick={ () =>  {return this.props.chooseCard(this)}}
+          onClick={ () =>  {return this.props.chooseCard(this.state.index)}}
           className={
-            this.state.active ? "flip-card-inner flipped" : "flip-card-inner"
+            (this.props.face) ? "flip-card-inner flipped" : "flip-card-inner"
           }
         >
           <div className="flip-card-front">

@@ -22,7 +22,7 @@ function AppBar(props) {
         <Typography variant="h6" className={classes.title}>
           Test your memory
         </Typography>
-        <Button color="inherit">Start A New Game</Button>
+        <Button color="inherit" onClick={props.onClick}>Start A New Game</Button>
       </Toolbar>
     </div>
   );
