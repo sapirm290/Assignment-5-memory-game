@@ -7,6 +7,7 @@ import OpeningDialog from "./components/Modal/OpeningDialog";
 import ClosingDialog from "./components/Modal/ClosingDialog";
 
 export class App extends Component {
+  
   render() {
     return (
       <div className="App">

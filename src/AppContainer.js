@@ -26,6 +26,7 @@ export class AppContainer extends Component {
         face: false
       });
     }
+    this.setState({board: this.state.board});
   }
   createRandomDoubleArray(length) {
     for (var a = [], i = 0; i < length; ++i) a[i] = i;
@@ -96,7 +97,7 @@ export class AppContainer extends Component {
           const backToPick = () => {
             this.state.readyToPick = !this.state.readyToPick;
           };
-          setTimeout(backToPick, 100);
+          setTimeout(backToPick, 1000);
         }
       } else {
         console.log("needs flipping");
@@ -110,7 +111,7 @@ export class AppContainer extends Component {
           this.state.readyToPick = !this.state.readyToPick;
           this.setState({ lastCardIndex: -1 });
         };
-        setTimeout(flipBack, 100);
+        setTimeout(flipBack, 1000);
       }
     }
   }
