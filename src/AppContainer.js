@@ -8,15 +8,28 @@ export class AppContainer extends Component {
     this.gameData = {
       chooseOrMatchCard: true,
       lastCardIndex: -1,
-      readyToPick: true
+      readyToPick: true,
+      name: "Person"
     };
     this.state = {
-      numOfCardRows: 3,
-      numOfCardCols: 6
+      board: [],
+      numOfCardRows: 4,
+      numOfCardCols: 6,
+      theme: "regular"
     };
-    this.play(this.state.numOfCardRows, this.state.numOfCardCols, "regular");
+    this.play(this.state.numOfCardRows, this.state.numOfCardCols, this.state.theme);
   }
-
+  gameChoices(name, difficulty, theme){
+    this.state.theme= theme;
+    this.gameData.name = name;
+    if (difficulty === "hard") {
+      this.setState({ numOfCardRows: 4, numOfCardCols: 6 });
+    } else if (difficulty === "medium") {
+      this.setState({ numOfCardRows: 3, numOfCardCols: 6 });
+    } else this.setState({ numOfCardRows: 3, numOfCardCols: 4 });
+    this.play(this.state.numOfCardRows, this.state.numOfCardCols, this.state.theme);
+  }
+ 
   play(x, y, theme) {
     var shuffledArray = this.createRandomDoubleArray(x * y);
     this.gameData.lastCardIndex = -1;
@@ -122,9 +135,9 @@ export class AppContainer extends Component {
       play: this.play.bind(this),
       board: this.state.board,
       numOfCardRows: this.state.numOfCardRows,
-      numOfCardCols: this.state.numOfCardCols
+      numOfCardCols: this.state.numOfCardCols,
     };
-    return <App gameData={GAMEDATA} />;
+    return <App gameData={GAMEDATA} gameChoices={this.gameChoices.bind(this)}/>;
   }
 }
 

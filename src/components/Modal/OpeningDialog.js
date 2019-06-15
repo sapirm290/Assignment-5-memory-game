@@ -24,27 +24,34 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   }
 }));
-export default function OpeningDialog() {
+export default function OpeningDialog(props) {
   const [state, setState] = React.useState({
-    age: "",
+    difficulty: "easy",
+    theme: "regular",
     name: "hai"
   });
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
 
-  const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
+  // const inputLabel = React.useRef(null);
+  // const [labelWidth, setLabelWidth] = React.useState(0);
   // React.useEffect(() => {
   //   setLabelWidth(inputLabel.current.offsetWidth);
   // }, []);
-  const handleChange = name => event => {
+  const handleDifficultyChange = name => event => {
     setState({
       ...state,
       [name]: event.target.value
     });
   };
-
+  const handleThemeChange = name => event => {
+    setState({
+      ...state,
+      [name]: event.target.value
+    });
+  };
   function handleClose() {
+    props.gameChoices(state.name, state.difficulty, state.theme);
     setOpen(false);
   }
 
@@ -53,15 +60,17 @@ export default function OpeningDialog() {
       <Dialog
         open={open}
         onClose={handleClose}
+        disableBackdropClick={true}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Welcome</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            I am thrilled we are playing this. Please type your name
+            I am thrilled we are playing this. Please type your name:
           </DialogContentText>
           <TextField
             autoFocus
+            value="Person"
             margin="dense"
             id="name"
             label="Name"
@@ -69,14 +78,29 @@ export default function OpeningDialog() {
             fullWidth
           />
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="age-native-simple">Age</InputLabel>
+            <InputLabel htmlFor="theme">Theme</InputLabel>
             <Select
               native
-              value={state.age}
-              onChange={handleChange("age")}
+              value={state.theme}
+              onChange={handleThemeChange("theme")}
+              inputProps={{
+                name: "theme",
+                id: "theme"
+              }}
+            >
+              <option value={"animals"}>Animals</option>
+              <option value={"special"}>Special</option>
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="difficulty-level">Difficulty</InputLabel>
+            <Select
+              native
+              value={state.difficulty}
+              onChange={handleDifficultyChange("difficulty")}
               inputProps={{
                 name: "Difficulty",
-                id: "age-native-simple"
+                id: "difficulty-level"
               }}
             >
               <option value={"easy"}>Easy</option>

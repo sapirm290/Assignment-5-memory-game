@@ -18,11 +18,13 @@ function AppBar(props) {
   const classes = useStyles();
   return (
     <div className="AppBar" position="fixed" top="0">
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+      <Toolbar variant="dense">
+        <Typography variant="h1"
+        //  style={font-weight: "600"  }
+         className={classes.title}>
           {/* Test your memory */}
         </Typography>
-        <Button color="inherit" onClick={props.onClick}>Start A New Game</Button>
+        <Button color="default" variant="contained" onClick={props.onClick}>Start A New Game</Button>
       </Toolbar>
     </div>
   );

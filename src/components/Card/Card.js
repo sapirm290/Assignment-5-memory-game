@@ -4,7 +4,7 @@ import backImage from "../../images/backcard.jpg";
 
 export class Card extends Component {
   render() {
-    const frontImage = require(`../../images/ca${this.props.pairValue}.jpg`);
+    const frontImage = require(`../../animal-images/ca${this.props.pairValue}.jpg`);
     return (
         <div className="flip-card">
           <div
