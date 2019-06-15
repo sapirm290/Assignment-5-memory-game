@@ -1,39 +1,28 @@
 import React, { Component } from "react";
 import "./Card.css";
-import image from "../../images/backcard.jpg";
-import Box from "@material-ui/core/Box";
+import backImage from "../../images/backcard.jpg";
 
 export class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      index: this.props.index,
-      pairValue: this.props.pairValue
-    };
-  }
-
   render() {
-    const logo = require(`../../images/ca${this.state.pairValue}.jpg`);
+    const frontImage = require(`../../images/ca${this.props.pairValue}.jpg`);
     return (
-      <Box component="span" m={1}>
         <div className="flip-card">
           <div
             onClick={() => {
-              return this.props.chooseCard(this.state.index);
+              return this.props.chooseCard(this.props.index);
             }}
             className={
               this.props.face ? "flip-card-inner flipped" : "flip-card-inner"
             }
           >
             <div className="flip-card-front">
-              <img src={image} alt="Avatar" />
+              <img src={backImage} alt="Avatar" />
             </div>
             <div className="flip-card-back">
-              <img src={logo} alt="Avatar" />
+              <img src={frontImage} alt="Avatar" />
             </div>
           </div>
         </div>
-      </Box>
     );
   }
 }

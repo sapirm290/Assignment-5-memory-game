@@ -14,7 +14,7 @@ export class App extends Component {
         <AppBar
           className="AppBar"
           onClick={() => {
-            return this.props.gameData.play(3, 4, "regular");
+            return this.props.gameData.play(this.props.gameData.numOfCardRows, this.props.gameData.numOfCardCols, "regular");
           }}
           position="relative"
         />

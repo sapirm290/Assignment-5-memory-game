@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "../Card/Card";
 export class board extends Component {
+
   createCards() {
     const cardsArray = [];
     for (var index1 = 0; index1 < this.props.gameData.numOfCardRows; index1++) {

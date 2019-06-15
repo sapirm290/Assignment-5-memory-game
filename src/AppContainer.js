@@ -3,21 +3,23 @@ import App from "./App";
 import { throwStatement } from "@babel/types";
 
 export class AppContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      board: [],
+  constructor(props) {
+    super(props);
+    this.gameData = {
       chooseOrMatchCard: true,
       lastCardIndex: -1,
-      readyToPick: true,
+      readyToPick: true
+    };
+    this.state = {
       numOfCardRows: 3,
-      numOfCardCols: 4
+      numOfCardCols: 6
     };
     this.play(this.state.numOfCardRows, this.state.numOfCardCols, "regular");
   }
 
   play(x, y, theme) {
     var shuffledArray = this.createRandomDoubleArray(x * y);
+    this.gameData.lastCardIndex = -1;
     this.state.board = [];
     for (var index = 0; index < x * y; index++) {
       this.state.board.push({
@@ -26,7 +28,7 @@ export class AppContainer extends Component {
         face: false
       });
     }
-    this.setState({board: this.state.board});
+    this.setState({ board: this.state.board });
   }
   createRandomDoubleArray(length) {
     for (var a = [], i = 0; i < length; ++i) a[i] = i;
@@ -53,38 +55,37 @@ export class AppContainer extends Component {
     for (let index = 0; index < length; index++) {
       if (!this.state.board[index].found) return false;
     }
-
     return true;
   }
   chooseCard(cardIndex) {
     if (
-      !this.state.readyToPick ||
-      cardIndex === this.state.lastCardIndex ||
+      !this.gameData.readyToPick ||
+      cardIndex === this.gameData.lastCardIndex ||
       this.state.board[cardIndex].found === true
     )
       return;
-    if (this.state.chooseOrMatchCard) {
+    if (this.gameData.chooseOrMatchCard) {
       console.log(this.state.board[cardIndex].pairValue);
 
-      this.setState({ chooseOrMatchCard: !this.state.chooseOrMatchCard });
-      this.setState({ lastCardIndex: cardIndex });
+      this.gameData.chooseOrMatchCard = !this.gameData.chooseOrMatchCard;
+      this.gameData.lastCardIndex = cardIndex;
       this.state.board[cardIndex].face = !this.state.board[cardIndex].face;
       this.setState({ board: this.state.board });
     } else {
       console.log(this.state.board[cardIndex].pairValue);
       this.state.board[cardIndex].face = !this.state.board[cardIndex].face;
       this.setState({ board: this.state.board });
-      this.state.chooseOrMatchCard = !this.state.chooseOrMatchCard;
+      this.gameData.chooseOrMatchCard = !this.gameData.chooseOrMatchCard;
 
       if (
-        this.state.lastCardIndex !== cardIndex &&
+        this.gameData.lastCardIndex !== cardIndex &&
         this.state.board[cardIndex].pairValue ===
-          this.state.board[this.state.lastCardIndex].pairValue
+          this.state.board[this.gameData.lastCardIndex].pairValue
       ) {
         console.log("nice");
 
         this.state.board[cardIndex].found = true;
-        this.state.board[this.state.lastCardIndex].found = true;
+        this.state.board[this.gameData.lastCardIndex].found = true;
         if (this.didWin()) {
           console.log("Well Played!");
           this.play(
@@ -93,23 +94,22 @@ export class AppContainer extends Component {
             "regular"
           );
         } else {
-          this.state.readyToPick = false;
+          this.gameData.readyToPick = false;
           const backToPick = () => {
-            this.state.readyToPick = !this.state.readyToPick;
+            this.gameData.readyToPick = !this.gameData.readyToPick;
           };
           setTimeout(backToPick, 1000);
         }
       } else {
         console.log("needs flipping");
-        this.state.readyToPick = false;
+        this.gameData.readyToPick = false;
         const flipBack = () => {
           this.state.board[cardIndex].face = !this.state.board[cardIndex].face;
-          this.state.board[this.state.lastCardIndex].face = !this.state.board[
-            this.state.lastCardIndex
-          ].face;
+          this.state.board[this.gameData.lastCardIndex].face = !this.state
+            .board[this.gameData.lastCardIndex].face;
           this.setState({ board: this.state.board });
-          this.state.readyToPick = !this.state.readyToPick;
-          this.setState({ lastCardIndex: -1 });
+          this.gameData.readyToPick = !this.gameData.readyToPick;
+          this.gameData.lastCardIndex = -1;
         };
         setTimeout(flipBack, 1000);
       }
@@ -119,10 +119,10 @@ export class AppContainer extends Component {
   render() {
     const GAMEDATA = {
       chooseCard: this.chooseCard.bind(this),
+      play: this.play.bind(this),
       board: this.state.board,
       numOfCardRows: this.state.numOfCardRows,
-      numOfCardCols: this.state.numOfCardCols,
-      play: this.play.bind(this)
+      numOfCardCols: this.state.numOfCardCols
     };
     return <App gameData={GAMEDATA} />;
   }
