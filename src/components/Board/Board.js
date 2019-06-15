@@ -18,6 +18,7 @@ export class board extends Component {
             pairValue={this.props.gameData.board[index].pairValue}
             face={this.props.gameData.board[index].face}
             chooseCard={this.props.gameData.chooseCard}
+            theme={this.props.gameData.theme}
           />
         );
       }

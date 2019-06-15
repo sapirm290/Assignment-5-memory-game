@@ -9,13 +9,15 @@ export class AppContainer extends Component {
       chooseOrMatchCard: true,
       lastCardIndex: -1,
       readyToPick: true,
-      name: "Person"
+      name: "Person",
+      justWon:false
     };
     this.state = {
+      guesses: 0,
       board: [],
       numOfCardRows: 4,
       numOfCardCols: 6,
-      theme: "regular"
+      theme: "animals"
     };
     this.play(this.state.numOfCardRows, this.state.numOfCardCols, this.state.theme);
   }
@@ -31,6 +33,7 @@ export class AppContainer extends Component {
   }
  
   play(x, y, theme) {
+    this.setState({guesses:0});
     var shuffledArray = this.createRandomDoubleArray(x * y);
     this.gameData.lastCardIndex = -1;
     this.state.board = [];
@@ -65,10 +68,13 @@ export class AppContainer extends Component {
   didWin() {
     console.log(this.state.board);
     var length = this.state.numOfCardCols * this.state.numOfCardRows;
-    for (let index = 0; index < length; index++) {
-      if (!this.state.board[index].found) return false;
-    }
+    // for (let index = 0; index < length; index++) {
+    //   if (!this.state.board[index].found) return false;
+    // }
     return true;
+  }
+  closeJustWon(){
+    this.setState({justWon: false})
   }
   chooseCard(cardIndex) {
     if (
@@ -101,6 +107,7 @@ export class AppContainer extends Component {
         this.state.board[this.gameData.lastCardIndex].found = true;
         if (this.didWin()) {
           console.log("Well Played!");
+          this.state.justWon = true;
           this.play(
             this.state.numOfCardRows,
             this.state.numOfCardCols,
@@ -114,6 +121,7 @@ export class AppContainer extends Component {
           setTimeout(backToPick, 1000);
         }
       } else {
+        this.setState({guesses: this.state.guesses+1});
         console.log("needs flipping");
         this.gameData.readyToPick = false;
         const flipBack = () => {
@@ -136,8 +144,12 @@ export class AppContainer extends Component {
       board: this.state.board,
       numOfCardRows: this.state.numOfCardRows,
       numOfCardCols: this.state.numOfCardCols,
+      guesses: this.state.guesses,
+      theme: this.state.theme,
+      justWon:this.state.justWon,
+      closeJustWon: this.closeJustWon.bind(this)
     };
-    return <App gameData={GAMEDATA} gameChoices={this.gameChoices.bind(this)}/>;
+    return <App gameData={GAMEDATA} gameChoices={this.gameChoices.bind(this)} playerName={this.gameData.name}/>;
   }
 }
 

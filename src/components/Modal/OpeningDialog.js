@@ -27,8 +27,8 @@ const useStyles = makeStyles(theme => ({
 export default function OpeningDialog(props) {
   const [state, setState] = React.useState({
     difficulty: "easy",
-    theme: "regular",
-    name: "hai"
+    theme: "animals",
+    name: "Person"
   });
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
@@ -70,7 +70,6 @@ export default function OpeningDialog(props) {
           </DialogContentText>
           <TextField
             autoFocus
-            value="Person"
             margin="dense"
             id="name"
             label="Name"

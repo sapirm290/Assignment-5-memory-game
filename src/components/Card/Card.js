@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./Card.css";
-import backImage from "../../images/backcard.jpg";
 
 export class Card extends Component {
   render() {
-    const frontImage = require(`../../animal-images/ca${this.props.pairValue}.jpg`);
+    const frontImage = require(`../../${(this.props.theme=== "animals")?"animal":"lotr"}-images/ca${this.props.pairValue}.jpg`);
+    const backImage = require(`../../${(this.props.theme=== "animals")?"animal":"lotr"}-images/cardback.png`);
     return (
         <div className="flip-card">
           <div
