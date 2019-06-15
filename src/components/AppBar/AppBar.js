@@ -20,7 +20,7 @@ function AppBar(props) {
     <div className="AppBar" position="fixed" top="0">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Test your memory
+          {/* Test your memory */}
         </Typography>
         <Button color="inherit" onClick={props.onClick}>Start A New Game</Button>
       </Toolbar>
