@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -33,11 +32,6 @@ export default function ClosingDialog(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
-  // const inputLabel = React.useRef(null);
-  // const [labelWidth, setLabelWidth] = React.useState(0);
-  // React.useEffect(() => {
-  //   setLabelWidth(inputLabel.current.offsetWidth);
-  // }, []);
   const handleDifficultyChange = name => event => {
     setState({
       ...state,
@@ -69,7 +63,7 @@ export default function ClosingDialog(props) {
          You win!!!</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Well done. you had {props.guesses} incorrect guesses
+            {/* Well done. you had {props.guesses} incorrect guesses */}
           </DialogContentText>
 
           <FormControl className={classes.formControl}>

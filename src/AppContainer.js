@@ -15,7 +15,7 @@ export class AppContainer extends Component {
     this.state = {
       guesses: 0,
       board: [],
-      numOfCardRows: 4,
+      numOfCardRows: 3,
       numOfCardCols: 6,
       theme: "animals"
     };
@@ -66,11 +66,10 @@ export class AppContainer extends Component {
   }
 
   didWin() {
-    console.log(this.state.board);
     var length = this.state.numOfCardCols * this.state.numOfCardRows;
-    // for (let index = 0; index < length; index++) {
-    //   if (!this.state.board[index].found) return false;
-    // }
+    for (let index = 0; index < length; index++) {
+      if (!this.state.board[index].found) return false;
+    }
     return true;
   }
   closeJustWon(){
@@ -84,14 +83,12 @@ export class AppContainer extends Component {
     )
       return;
     if (this.gameData.chooseOrMatchCard) {
-      console.log(this.state.board[cardIndex].pairValue);
 
       this.gameData.chooseOrMatchCard = !this.gameData.chooseOrMatchCard;
       this.gameData.lastCardIndex = cardIndex;
       this.state.board[cardIndex].face = !this.state.board[cardIndex].face;
       this.setState({ board: this.state.board });
     } else {
-      console.log(this.state.board[cardIndex].pairValue);
       this.state.board[cardIndex].face = !this.state.board[cardIndex].face;
       this.setState({ board: this.state.board });
       this.gameData.chooseOrMatchCard = !this.gameData.chooseOrMatchCard;
@@ -101,18 +98,12 @@ export class AppContainer extends Component {
         this.state.board[cardIndex].pairValue ===
           this.state.board[this.gameData.lastCardIndex].pairValue
       ) {
-        console.log("nice");
 
         this.state.board[cardIndex].found = true;
         this.state.board[this.gameData.lastCardIndex].found = true;
         if (this.didWin()) {
-          console.log("Well Played!");
           this.state.justWon = true;
-          this.play(
-            this.state.numOfCardRows,
-            this.state.numOfCardCols,
-            "regular"
-          );
+  
         } else {
           this.gameData.readyToPick = false;
           const backToPick = () => {
@@ -122,7 +113,6 @@ export class AppContainer extends Component {
         }
       } else {
         this.setState({guesses: this.state.guesses+1});
-        console.log("needs flipping");
         this.gameData.readyToPick = false;
         const flipBack = () => {
           this.state.board[cardIndex].face = !this.state.board[cardIndex].face;

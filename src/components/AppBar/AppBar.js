@@ -28,7 +28,7 @@ function AppBar(props) {
       <Toolbar variant="dense">
         <Typography variant="h4"
          className={classes.title}>
-          Guesses: {props.guesses}
+          Incorrect guesses: {props.guesses}
         </Typography>
         <Button color="default" className={classes.btn}  variant="contained" onClick={props.onClick}>Start A New Game</Button>
       </Toolbar>

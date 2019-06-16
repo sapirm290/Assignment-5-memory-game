@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function OpeningDialog(props) {
   const [state, setState] = React.useState({
-    difficulty: "easy",
+    difficulty: "medium",
     theme: "animals",
     name: "Person"
   });
@@ -102,9 +102,9 @@ export default function OpeningDialog(props) {
                 id: "difficulty-level"
               }}
             >
-              <option value={"easy"}>Easy</option>
+              {/* <option value={"easy"}>Easy</option> */}
               <option value={"medium"}>Medium</option>
-              <option value={"hard"}>Hard</option>
+              {/* <option value={"hard"}>Hard</option> */}
             </Select>
           </FormControl>
         </DialogContent>
